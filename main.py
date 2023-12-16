@@ -70,7 +70,8 @@ async def cb_cancel(call: CallbackQuery, state: FSMContext):
 
 @dp.callback_query_handler(text="get_link", state="*")
 async def cb_get_link(call: CallbackQuery, state: FSMContext):
-    await cmd_start(call.message, state)
+    link = await get_start_link(call.from_user.id, encode=True)
+    await call.message.answer(f"😀 Чтобы получить много <b>анонимных сообщений</b> мы рекомендуем тебе разместить твою персональную ссылку в описании профиля телеграм.\n\n🔗Твоя персональная ссылка: {link}", parse_mode='html')
 
 @dp.message_handler(lambda msg: True)
 async def echo(message: Message, state: FSMContext):
